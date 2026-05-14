@@ -10,7 +10,7 @@ resource "azurerm_linux_virtual_machine_scale_set" "main" {
   # SSH Key for secure access
   admin_ssh_key {
     username   = "azureuser"
-    public_key = file("~/.ssh/id_rsa.pub")
+    public_key = var.ssh_public_key
   }
 
   # OS Image configuration (Ubuntu 22.04 LTS)

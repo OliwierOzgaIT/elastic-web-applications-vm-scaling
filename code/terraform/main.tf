@@ -21,3 +21,9 @@ resource "azurerm_resource_group" "main" {
   name     = "rg-elastic-web-prod-ne"
   location = "northeurope" # Regional location for all resources
 }
+
+variable "ssh_public_key" {
+  description = "SSH public key for VMSS instances."
+  type        = string
+  default     = ""
+}
