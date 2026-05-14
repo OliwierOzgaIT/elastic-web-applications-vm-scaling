@@ -4,6 +4,7 @@
 [![Terraform](https://img.shields.io/badge/IaC-Terraform-purple)](https://www.terraform.io)
 [![IIS](https://img.shields.io/badge/WebServer-IIS-orange)](https://www.microsoft.com/iis)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Terraform Validate](https://github.com/OliwierOzgaIT/azure-serverless-monitoring/actions/workflows/terraform-validate.yml/badge.svg)](https://github.com/OliwierOzgaIT/azure-serverless-monitoring/actions)
 
 An advanced Azure-based infrastructure designed to demonstrate **Elasticity** and **High Availability**. This project leverages **Infrastructure as Code (IaC)** to deploy a Virtual Machine Scale Set (VMSS) protected by an Azure Load Balancer, with fully automated scaling driven by real-time CPU performance metrics.
 
