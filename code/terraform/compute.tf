@@ -4,7 +4,7 @@ resource "azurerm_linux_virtual_machine_scale_set" "main" {
   resource_group_name = azurerm_resource_group.main.name
   location            = azurerm_resource_group.main.location
   sku                 = "Standard_D2s_v3" # Cost-effective burstable instance
-  instances           = 2              # Initial instance count for high availability
+  instances           = 2                 # Initial instance count for high availability
   admin_username      = "azureuser"
 
   # SSH Key for secure access

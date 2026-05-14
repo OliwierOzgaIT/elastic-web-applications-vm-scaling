@@ -32,7 +32,7 @@ resource "azurerm_monitor_autoscale_setting" "main" {
         time_window        = "PT1M"
         time_aggregation   = "Average"
         operator           = "GreaterThan"
-        threshold          = 0.2 
+        threshold          = 0.2
       }
 
       scale_action {
