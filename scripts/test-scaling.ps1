@@ -24,7 +24,6 @@ Write-Host "--- 3. Testing Load Balancer on $PUBLIC_IP ---" -ForegroundColor Cya
 Write-Host "--- 4. Starting Stress Test (Background Jobs) ---" -ForegroundColor Yellow
 Write-Host "Spawning 20 background workers to generate CPU load..." -ForegroundColor White
 
-# Tworzy 20 osobnych procesów, z których każdy wysyła 100 zapytań
 1..20 | ForEach-Object {
     Start-Job -ScriptBlock { 
         param($ip) 

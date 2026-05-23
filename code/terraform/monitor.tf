@@ -1,4 +1,3 @@
-# Application Insights
 resource "azurerm_application_insights" "main" {
   name                = "webapp-insights"
   location            = azurerm_resource_group.main.location
@@ -6,7 +5,6 @@ resource "azurerm_application_insights" "main" {
   application_type    = "web"
 }
 
-# Autoscale Setting 
 resource "azurerm_monitor_autoscale_setting" "main" {
   name                = "autoscale-profile"
   resource_group_name = azurerm_resource_group.main.name
@@ -22,7 +20,6 @@ resource "azurerm_monitor_autoscale_setting" "main" {
       maximum = 10 # Maximum scale-out limit
     }
 
-    # SCALE-OUT RULE: Increase capacity when CPU > 0.2%
     rule {
       metric_trigger {
         metric_name        = "Percentage CPU"
@@ -43,7 +40,6 @@ resource "azurerm_monitor_autoscale_setting" "main" {
       }
     }
 
-    # SCALE-IN RULE: Decrease capacity when CPU < 30%
     rule {
       metric_trigger {
         metric_name        = "Percentage CPU"
@@ -66,15 +62,14 @@ resource "azurerm_monitor_autoscale_setting" "main" {
   }
 }
 
-# Metric Alert - Notify when CPU usage is critically high (> 80%)
 resource "azurerm_monitor_metric_alert" "high_cpu" {
   name                = "high-cpu-alert"
   resource_group_name = azurerm_resource_group.main.name
   scopes              = [azurerm_linux_virtual_machine_scale_set.main.id]
   description         = "Alert when CPU usage exceeds 80%"
   severity            = 2
-  frequency           = "PT1M" # Evaluation frequency
-  window_size         = "PT5M" # Monitoring window
+  frequency           = "PT1M"
+  window_size         = "PT5M"
 
   criteria {
     metric_namespace = "Microsoft.Compute/virtualMachineScaleSets"

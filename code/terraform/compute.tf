@@ -1,4 +1,3 @@
-# Virtual Machine Scale Set (VMSS)
 resource "azurerm_linux_virtual_machine_scale_set" "main" {
   name                = "vmss-webapp-prod"
   resource_group_name = azurerm_resource_group.main.name
@@ -7,13 +6,11 @@ resource "azurerm_linux_virtual_machine_scale_set" "main" {
   instances           = 2                 # Initial instance count for high availability
   admin_username      = "azureuser"
 
-  # SSH Key for secure access
   admin_ssh_key {
     username   = "azureuser"
     public_key = var.ssh_public_key
   }
 
-  # OS Image configuration (Ubuntu 22.04 LTS)
   source_image_reference {
     publisher = "Canonical"
     offer     = "0001-com-ubuntu-server-jammy"
@@ -26,7 +23,6 @@ resource "azurerm_linux_virtual_machine_scale_set" "main" {
     caching              = "ReadWrite"
   }
 
-  # Network Configuration
   network_interface {
     name    = "nic-webapp"
     primary = true
@@ -39,7 +35,6 @@ resource "azurerm_linux_virtual_machine_scale_set" "main" {
     }
   }
 
-  # Automated Nginx installation and startup
   custom_data = base64encode(<<-EOF
               #!/bin/bash
               apt-get update

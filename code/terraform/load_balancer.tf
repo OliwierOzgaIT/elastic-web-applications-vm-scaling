@@ -1,4 +1,3 @@
-# Static Public IP for the application endpoint
 resource "azurerm_public_ip" "lb_pip" {
   name                = "pip-webapp-lb"
   location            = azurerm_resource_group.main.location
@@ -7,7 +6,6 @@ resource "azurerm_public_ip" "lb_pip" {
   sku                 = "Standard" # Required for VMSS and zone-redundancy
 }
 
-# Standard Load Balancer for traffic distribution
 resource "azurerm_lb" "main" {
   name                = "lb-webapp-prod"
   location            = azurerm_resource_group.main.location
@@ -20,7 +18,6 @@ resource "azurerm_lb" "main" {
   }
 }
 
-# Pool containing the network interfaces of our VM instances
 resource "azurerm_lb_backend_address_pool" "bepool" {
   loadbalancer_id = azurerm_lb.main.id
   name            = "BackEndAddressPool"
@@ -35,7 +32,6 @@ resource "azurerm_lb_probe" "hp" {
   request_path    = "/"
 }
 
-# Load Balancing rule mapping Frontend IP to Backend Pool
 resource "azurerm_lb_rule" "lbr" {
   loadbalancer_id                = azurerm_lb.main.id
   name                           = "LBRule-HTTP"

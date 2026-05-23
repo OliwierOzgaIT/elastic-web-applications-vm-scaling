@@ -1,4 +1,3 @@
-# Terraform Provider Configuration
 terraform {
   required_providers {
     azurerm = {
@@ -16,10 +15,9 @@ provider "azurerm" {
   }
 }
 
-# Global Resource Group Definition
 resource "azurerm_resource_group" "main" {
   name     = "rg-elastic-web-prod-ne"
-  location = "northeurope" # Regional location for all resources
+  location = "northeurope"
 }
 
 variable "ssh_public_key" {
