@@ -4,7 +4,7 @@
 [![Terraform](https://img.shields.io/badge/IaC-Terraform-purple)](https://www.terraform.io)
 [![IIS](https://img.shields.io/badge/WebServer-IIS-orange)](https://www.microsoft.com/iis)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Terraform Validate](https://github.com/OliwierOzgaIT/azure-serverless-monitoring/actions/workflows/terraform-validate.yml/badge.svg)](https://github.com/OliwierOzgaIT/azure-serverless-monitoring/actions)
+[![Terraform Validate](https://github.com/OliwierOzgaIT/elastic-web-applications-vm-scaling/actions/workflows/terraform-validate.yml/badge.svg)](https://github.com/OliwierOzgaIT/elastic-web-applications-vm-scaling/actions)
 
 An advanced Azure-based infrastructure designed to demonstrate **Elasticity** and **High Availability**. This project leverages **Infrastructure as Code (IaC)** to deploy a Virtual Machine Scale Set (VMSS) protected by an Azure Load Balancer, with fully automated scaling driven by real-time CPU performance metrics.
 
@@ -69,7 +69,7 @@ The project is organized into modular directories to ensure maintainability and 
 
 ---
 
-## 🚀 Deployment
+## 🚀 Getting Started
 
 ### Prerequisites
 
@@ -160,9 +160,19 @@ The deployment and management of the environment follow a structured lifecycle, 
 
 ---
 
+## 🔐 Security Design
+
+- **NSG on Subnet** — The NSG is associated at subnet level, ensuring all VMSS instances are protected by the same inbound rule set without per-NIC configuration.
+- **Managed Identity** — VMSS instances use a `SystemAssigned` identity with the `Monitoring Metrics Publisher` RBAC role. No static credentials are stored or transmitted.
+- **Health Probe Source Restriction** — Port 80 from `AzureLoadBalancer` service tag is explicitly allowed; all other inbound sources are implicitly denied, preventing direct internet access to instance IPs.
+- **No Public IPs on Instances** — Only the Load Balancer holds a public IP. VMSS instances live on a private subnet (`10.0.1.0/24`) and are unreachable directly from the internet.
+- **SSH Disabled by Default** — No SSH inbound rule is configured. Instances are managed exclusively through the Azure Portal serial console or via custom extension scripts.
+
+---
+
 ## 🧩 Challenges & Solutions
 
-| Challenge | Description | Resolution |
+| Issue | Cause | Solution |
 |:---|:---|:---|
 | **Identity Propagation** | VMSS instances couldn't forward logs to Application Insights. | Assigned a `SystemAssigned` Managed Identity with the `Monitoring Metrics Publisher` RBAC role. |
 | **Health Probe Failures** | Load Balancer marked instances as unhealthy. | Updated NSG inbound rules to allow Port 80 traffic from the `AzureLoadBalancer` service tag. |
